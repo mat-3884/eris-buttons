@@ -1,4 +1,3 @@
-const { MessageComponentTypes } = require('../Constants.js');
 const { resolveString } = require('discord.js').Util;
 
 class MessageMenuOption {
@@ -11,7 +10,7 @@ class MessageMenuOption {
 
     this.value = 'value' in data && data.value ? resolveString(data.value) : undefined;
 
-    if ('emoji' in data) this.setEmoji(data.emoji);
+    if (data.emoji) this.setEmoji(data.emoji);
 
     this.description = 'description' in data ? data.description : undefined;
 

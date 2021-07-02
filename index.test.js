@@ -16,7 +16,8 @@ client.on('message', async (message) => {
 
         const embed = new discord.MessageEmbed().setDescription(`${discord.version}`);
 
-        let option = new disbut.MessageMenuOption().setLabel('op').setValue('hi').setDescription('ss').setEmoji('❌');
+        let option = new disbut.MessageMenuOption()
+            .setLabel('op').setValue('hi').setDescription('ss');
 
         let reload = new disbut.MessageMenuOption().setLabel('reload').setEmoji('780988312172101682').setValue('reload');
 
@@ -28,13 +29,16 @@ client.on('message', async (message) => {
 
         // console.log(select)
 
-        let btn = new disbut.MessageButton().setLabel(' ').setID('id').setStyle('blurple').setEmoji('❌');
+        let btn = new disbut.MessageButton()
+            .setLabel(' ')
+            .setID('id')
+            .setStyle('blurple');
 
         let group1 = new disbut.MessageActionRow().addComponent(btn);
 
         let group2 = new disbut.MessageActionRow().addComponent(select);
 
-        let m = await message.channel.send('hi', { component: group2 });
+        let m = await message.channel.send('hi', { components: [group1, group2] });
 
         /*let collector = m.createMenuCollector((b) => b, { time: 10000 });
 
@@ -60,7 +64,9 @@ client.on('clickButton', async (button) => {
 client.on('clickMenu', async (menu) => {
     // let reply = await menu.reply.think();
     if (menu.values[0] === 'reload') {
-        menu.message.update('hey', menu.message.components)
+        menu.message.components[0].components[0].setDisabled();
+        console.log(menu.message.components)
+        menu.message.update('hey', { components: menu.message.components })
     }
 });
 

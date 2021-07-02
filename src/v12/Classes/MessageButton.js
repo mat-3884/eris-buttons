@@ -1,7 +1,7 @@
 const { MessageComponentTypes } = require('../Constants.js');
 const BaseMessageComponent = require('./interfaces/BaseMessageComponent');
 const { resolveString } = require('discord.js').Util;
-const { resolveStyle, isEmoji } = require('../Util');
+const { resolveStyle } = require('../Util');
 
 class MessageButton extends BaseMessageComponent {
   constructor(data = {}) {
@@ -16,7 +16,7 @@ class MessageButton extends BaseMessageComponent {
 
     this.disabled = 'disabled' in data ? data.disabled : false;
 
-    if ('emoji' in data) this.setEmoji(data.emoji);
+    if (data.emoji) this.setEmoji(data.emoji);
 
     if ('url' in data && data.url) this.url = resolveString(data.url);
     else this.url = undefined;
