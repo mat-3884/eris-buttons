@@ -383,4 +383,5 @@ export interface ExtendedNewsChannel extends discord.NewsChannel {
 
 declare module 'discord-buttons' {
   export default function (client: discord.Client): void;
+  export function multipleImport(...clients: discord.Client): void;
 }
