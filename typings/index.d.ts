@@ -248,8 +248,8 @@ export class MessageMenuOption extends BaseMessageComponent
 }
 
 export interface MessageOptions extends discord.MessageOptions {
-  component?: MessageButton | MessageActionRow;
-  components?: MessageActionRow[];
+  component?: MessageButton | MessageActionRow | MessageMenu;
+  components?: MessageActionRow[] | MessageMenu[];
   button?: MessageButton | MessageButton[];
   buttons?: MessageButton | MessageButton[];
   menu?: MessageMenu;
