@@ -47,7 +47,7 @@ declare module 'discord.js' {
     send(content: StringResolvable, options: (MessageOptions & { split?: false }) | MessageAdditions): Promise<Message>;
     send(content: StringResolvable, options: MessageOptions & { split: true | SplitOptions }): Promise<Message[]>;
     send(content: StringResolvable, options: MessageOptions): Promise<Message | Message[]>;
-    send(content: StringResolvable, options: MessageButton | MessageActionRow): Promise<Message | Message[]>;
+    send(content: StringResolvable, options: MessageButton | MessageActionRow | MessageMenu): Promise<Message | Message[]>;
   }
 }
 
@@ -319,7 +319,7 @@ export interface ExtendedTextChannel extends discord.TextChannel {
   send(content: StringResolvable, options: (MessageOptions & { split?: false }) | MessageAdditions): Promise<Message>;
   send(content: StringResolvable, options: MessageOptions & { split: true | SplitOptions }): Promise<Message[]>;
   send(content: StringResolvable, options: MessageOptions): Promise<Message | Message[]>;
-  send(content: StringResolvable, options: MessageButton | MessageActionRow): Promise<Message | Message[]>;
+  send(content: StringResolvable, options: MessageButton | MessageActionRow | MessageMenu): Promise<Message | Message[]>;
 }
 
 export interface ExtendedDMChannel extends discord.DMChannel {
@@ -329,7 +329,7 @@ export interface ExtendedDMChannel extends discord.DMChannel {
   send(content: StringResolvable, options: (MessageOptions & { split?: false }) | MessageAdditions): Promise<Message>;
   send(content: StringResolvable, options: MessageOptions & { split: true | SplitOptions }): Promise<Message[]>;
   send(content: StringResolvable, options: MessageOptions): Promise<Message | Message[]>;
-  send(content: StringResolvable, options: MessageButton | MessageActionRow): Promise<Message | Message[]>;
+  send(content: StringResolvable, options: MessageButton | MessageActionRow | MessageMenu): Promise<Message | Message[]>;
 }
 
 export interface ExtendedNewsChannel extends discord.NewsChannel {
@@ -339,7 +339,7 @@ export interface ExtendedNewsChannel extends discord.NewsChannel {
   send(content: StringResolvable, options: (MessageOptions & { split?: false }) | MessageAdditions): Promise<Message>;
   send(content: StringResolvable, options: MessageOptions & { split: true | SplitOptions }): Promise<Message[]>;
   send(content: StringResolvable, options: MessageOptions): Promise<Message | Message[]>;
-  send(content: StringResolvable, options: MessageButton | MessageActionRow): Promise<Message | Message[]>;
+  send(content: StringResolvable, options: MessageButton | MessageActionRow | MessageMenu): Promise<Message | Message[]>;
 }
 
 declare module 'discord-buttons' {
