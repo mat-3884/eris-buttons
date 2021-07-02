@@ -181,10 +181,10 @@ export class BaseMessageComponent {
 export class MessageActionRow extends BaseMessageComponent {
   constructor(data?: {});
   setup(data: any): MessageActionRow;
-  component: MessageButton;
-  components: MessageButton[];
-  addComponents(...components: MessageButton[]): MessageActionRow;
-  addComponent(component: MessageButton): MessageActionRow;
+  component: MessageButton | MessageMenu;
+  components: MessageButton[] | MessageMenu[];
+  addComponents(...components: MessageButton[] | MessageMenu[]): MessageActionRow;
+  addComponent(component: MessageButton | MessageMenu): MessageActionRow;
   toJSON(): {
     components: MessageButton[];
     type: string | number;
