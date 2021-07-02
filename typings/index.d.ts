@@ -1,69 +1,54 @@
 import discord, {
-    Snowflake,
-    Guild,
-    Channel,
-    User,
-    GuildMember,
-    Collector,
-    CollectorFilter,
-    Collection,
-    CollectorOptions,
-    APIMessageContentResolvable,
-    MessageEmbed,
-    MessageAttachment,
-    StringResolvable,
-    SplitOptions
+  Snowflake,
+  Guild,
+  Channel,
+  User,
+  GuildMember,
+  Collector,
+  CollectorFilter,
+  Collection,
+  CollectorOptions,
+  APIMessageContentResolvable,
+  MessageEmbed,
+  MessageAttachment,
+  StringResolvable,
+  SplitOptions,
 } from 'discord.js';
 
 declare module 'discord.js' {
+  export interface ClientEvents {
+    clickButton: [MessageComponent];
+  }
 
-    export interface ClientEvents
-    {
-        clickButton: [MessageComponent]
-    }
+  export interface MessageOptions {
+    component?: MessageButton | MessageActionRow;
+    components?: MessageActionRow[];
+    button?: MessageButton | MessageButton[];
+    buttons?: MessageButton | MessageButton[];
+  }
 
-    export interface MessageOptions
-    {
-        component?: MessageButton | MessageActionRow;
-        components?: MessageActionRow[];
-        button?: MessageButton | MessageButton[];
-        buttons?: MessageButton | MessageButton[];
-    }
+  export interface Message {
+    components: MessageActionRow[];
+    createButtonCollector(filter: CollectorFilter, options?: AwaitMessageButtonOptions): ButtonCollector;
+    awaitButtons(filter: CollectorFilter, options?: AwaitMessageButtonOptions): Promise<Collection<Snowflake, MessageComponent>>;
+  }
 
-    export interface Message
-    {
-        components: MessageActionRow[];
-        createButtonCollector(
-            filter: CollectorFilter,
-            options?: AwaitMessageButtonOptions
-        ): ButtonCollector;
-        awaitButtons(
-            filter: CollectorFilter,
-            options?: AwaitMessageButtonOptions
-        ): Promise<Collection<Snowflake, MessageComponent>>;
-    }
+  export interface WebhookClient {
+    editMessage(message: string, content: any, options?: {}): Promise<any>;
+    deleteMessage(message: string): Promise<void>;
+    fetchMessage(message: string, cache?: boolean): Promise<any>;
+  }
 
-    export interface WebhookClient
-    {
-        editMessage(message: string, content: any, options?: {}): Promise<any>;
-        deleteMessage(message: string): Promise<void>;
-        fetchMessage(message: string, cache?: boolean): Promise<any>;
-    }
-
-    export interface PartialTextBasedChannelFields
-    {
-        send(
-            content: APIMessageContentResolvable | (MessageOptions & { split?: false }) | MessageAdditions,
-        ): Promise<Message>;
-        send(options: MessageOptions & { split: true | SplitOptions }): Promise<Message[]>;
-        send(options: MessageOptions | discord.APIMessage): Promise<Message | Message[]>;
-        send(content: StringResolvable, options: (MessageOptions & { split?: false }) | MessageAdditions): Promise<Message>;
-        send(content: StringResolvable, options: MessageOptions & { split: true | SplitOptions }): Promise<Message[]>;
-        send(content: StringResolvable, options: MessageOptions): Promise<Message | Message[]>;
-        send(content: StringResolvable, options: MessageButton | MessageActionRow): Promise<Message | Message[]>;
-    }
+  export interface PartialTextBasedChannelFields {
+    send(content: APIMessageContentResolvable | (MessageOptions & { split?: false }) | MessageAdditions): Promise<Message>;
+    send(options: MessageOptions & { split: true | SplitOptions }): Promise<Message[]>;
+    send(options: MessageOptions | APIMessage): Promise<Message | Message[]>;
+    send(content: StringResolvable, options: (MessageOptions & { split?: false }) | MessageAdditions): Promise<Message>;
+    send(content: StringResolvable, options: MessageOptions & { split: true | SplitOptions }): Promise<Message[]>;
+    send(content: StringResolvable, options: MessageOptions): Promise<Message | Message[]>;
+    send(content: StringResolvable, options: MessageButton | MessageActionRow): Promise<Message | Message[]>;
+  }
 }
-
 
 declare module 'discord-buttons' {
   export default function (client: discord.Client): void;
