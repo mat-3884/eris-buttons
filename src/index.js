@@ -19,10 +19,13 @@ module.exports = (client) => {
 
   if (!client || !client instanceof Client) throw new Error("INVALID_CLIENT_PROVIDED: The Discord.js Client isn't provided or it's invalid.");
 
-  Structures.extend('TextChannel', () => TextChannel);
-  Structures.extend('DMChannel', () => DMChannel);
-  Structures.extend('NewsChannel', () => NewsChannel);
-  Structures.extend('Message', () => Message);
+  const message = Structures.get('Message');
+  if (!message.createButtonCollector || typeof message.createButtonCollector !== 'function') {
+    Structures.extend('TextChannel', () => TextChannel);
+    Structures.extend('DMChannel', () => DMChannel);
+    Structures.extend('NewsChannel', () => NewsChannel);
+    Structures.extend('Message', () => Message);
+  }
 
   client.ws.on('INTERACTION_CREATE', (data) => {
     if (!data.data.component_type) return;
@@ -49,7 +52,6 @@ module.exports.multipleImport = (...clients) => {
   }
 
   const message = Structures.get('Message');
-
   if (!message.createButtonCollector || typeof message.createButtonCollector !== 'function') {
     Structures.extend('TextChannel', () => TextChannel);
     Structures.extend('DMChannel', () => DMChannel);
@@ -95,3 +97,4 @@ module.exports.TextChannel = require('./v12/Classes/TextChannel');
 module.exports.WebhookClient = require('./v12/Classes/WebhookClient');
 module.exports.Util = require('./v12/Util');
 module.exports.Constants = require('./v12/Constants');
+module.exports.InteractionReply = require(`./v12/Classes/managers/InteractionReply`);
