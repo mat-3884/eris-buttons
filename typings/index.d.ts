@@ -252,6 +252,8 @@ export interface MessageOptions extends discord.MessageOptions {
   components?: MessageActionRow[];
   button?: MessageButton | MessageButton[];
   buttons?: MessageButton | MessageButton[];
+  menu?: MessageMenu;
+  menus?: MessageMenu[];
 }
 
 export interface ReplyOptions extends MessageOptions {
