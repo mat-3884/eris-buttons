@@ -32,7 +32,8 @@ client.on('message', async (message) => {
         let btn = new disbut.MessageButton()
             .setLabel(' ')
             .setID('id')
-            .setStyle('blurple');
+            .setStyle('blurple')
+            .setDisabled();
 
         let group1 = new disbut.MessageActionRow().addComponent(btn);
 
@@ -64,7 +65,7 @@ client.on('clickButton', async (button) => {
 client.on('clickMenu', async (menu) => {
     // let reply = await menu.reply.think();
     if (menu.values[0] === 'reload') {
-        menu.message.components[0].components[0].setDisabled();
+        menu.message.components[0].components[0].setDisabled(false);
         console.log(menu.message.components)
         menu.message.update('hey', { components: menu.message.components })
     }

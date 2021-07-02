@@ -39,8 +39,9 @@ class MessageButton extends BaseMessageComponent {
     return this;
   }
 
-  setDisabled(disabled = true) {
-    this.disabled = disabled;
+  setDisabled(disabled) {
+    if (disabled === false) this.disabled = false;
+    else this.disabled = true;
     return this;
   }
 

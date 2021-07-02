@@ -38,18 +38,20 @@ class MessageActionRow extends BaseMessageComponent {
 
   toJSON() {
     return {
-      components: this.components ? this.components.map((c) => {
-        if (c instanceof MessageButton || c instanceof MessageMenu) {
-          return c;
-        } else {
-          switch (c.type) {
-            case MessageComponentTypes.BUTTON:
-              return new MessageButton(c);
-            case MessageComponentTypes.SELECT_MENU:
-              return new MessageMenu(c);
-          }
-        }
-      }) : [],
+      components: this.components
+        ? this.components.map((c) => {
+            if (c instanceof MessageButton || c instanceof MessageMenu) {
+              return c;
+            } else {
+              switch (c.type) {
+                case MessageComponentTypes.BUTTON:
+                  return new MessageButton(c);
+                case MessageComponentTypes.SELECT_MENU:
+                  return new MessageMenu(c);
+              }
+            }
+          })
+        : [],
       type: MessageComponentTypes[this.type],
     };
   }
