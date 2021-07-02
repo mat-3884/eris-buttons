@@ -161,6 +161,7 @@ export class MessageComponent {
   applicationID: Snowflake;
   guild: Guild;
   channel: Channel;
+  values?: string[];
   clicker: {
     id: Snowflake;
     user: User;
@@ -210,7 +211,13 @@ export class MessageButton extends BaseMessageComponent {
 
 export class MessageMenu extends BaseMessageComponent
 {
-  constructor(data?: any)
+  constructor(data?: any);
+  public placeholder: string;
+  public max_values: number;
+  public min_values: number;
+  public options: MessageMenuOption[];
+  public custom_id: string;
+  public type: string;
   public setup(data: any): MessageMenu;
   public setPlaceholder(label: string): MessageMenu;
   public setID(id: string): MessageMenu;
@@ -225,12 +232,18 @@ export class MessageMenu extends BaseMessageComponent
 export class MessageMenuOption extends BaseMessageComponent
 {
   constructor(data?: MessageMenuOptionsData);
+  public default: Boolean;
+  public description: string;
+  public emoji: string | GuildButtonEmoji;
+  public label: string;
+  public value: string;
+  public type: string;
   public setup(data: MessageMenuOptions): MessageMenuOption;
   public setLabel(label: string): MessageMenuOption;
   public setValue(value: string): MessageMenuOption;
   public setDescription(value: string): MessageMenuOption;
   public setDefault(def?: Boolean): MessageMenuOption;
-  public setEmoji(emoji: string|GuildButtonEmoji, animted?: Boolean): MessageMenuOption;
+  public setEmoji(emoji: string | GuildButtonEmoji, animted?: Boolean): MessageMenuOption;
   public toJSON(): MessageMenuOptionsData;
 }
 
