@@ -125,7 +125,7 @@ export interface MessageMenuData
   custom_id?: string;
   max_values?: number;
   min_values?: number;
-  options?: any;
+  options?: Array<MessageMenuOptions>;
 }
 
 export interface MessageMenuOptionsData
