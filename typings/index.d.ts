@@ -18,6 +18,7 @@ import discord, {
 declare module 'discord.js' {
   export interface ClientEvents {
     clickButton: [MessageComponent];
+    clickMenu: [MessageComponent];
   }
 
   export interface MessageOptions {
@@ -93,6 +94,15 @@ export interface MessageButtonOptions {
   custom_id?: string;
 }
 
+export interface MessageMenuOptions
+{
+  type: MessageComponentTypes.SELECT_MENU;
+  label?: string;
+  emoji?: string | GuildButtonEmoji;
+  description?: string;
+  value?: string;
+}
+
 export interface MessageButtonData {
   type?: MessageComponentTypes.BUTTON;
   style: MessageButtonStyles | number;
@@ -106,6 +116,24 @@ export interface MessageButtonData {
 export interface MessageActionRowData {
   type: number | string;
   components: MessageButton[];
+}
+
+export interface MessageMenuData
+{
+  type?: MessageComponentTypes.SELECT_MENU;
+  placeholder?: string;
+  custom_id?: string;
+  max_values?: number;
+  min_values?: number;
+  options?: any;
+}
+
+export interface MessageMenuOptionsData
+{
+  label?: string;
+  emoji?: string | GuildButtonEmoji;
+  description?: string;
+  value?: string;
 }
 
 export class InteractionReply {
@@ -124,7 +152,7 @@ export class InteractionReply {
 }
 
 export class MessageComponent {
-  constructor(client: discord.Client, data: any);
+  constructor(client: discord.Client, data: any, menu: Boolean);
   client: discord.Client;
   id: Snowflake;
   version: any;
@@ -178,6 +206,32 @@ export class MessageButton extends BaseMessageComponent {
   public setID(id: string): MessageButton;
   public setEmoji(emoji: any): MessageButton;
   public toJSON(): MessageButtonData;
+}
+
+export class MessageMenu extends BaseMessageComponent
+{
+  constructor(data?: any)
+  public setup(data: any): MessageMenu;
+  public setPlaceholder(label: string): MessageMenu;
+  public setID(id: string): MessageMenu;
+  public setMaxValues(number: number): MessageMenu;
+  public setMinValues(number: number): MessageMenu;
+  public addOption(option: MessageMenuOption): MessageMenu;
+  public addOptions(...options: MessageMenuOption[]): MessageMenu;
+  public removeOptions(index: number, deleteCount: number, ...options: MessageMenuOption[]): MessageMenu;
+  public toJSON(): MessageMenuData;
+}
+
+export class MessageMenuOption extends BaseMessageComponent
+{
+  constructor(data?: MessageMenuOptionsData);
+  public setup(data: MessageMenuOptions): MessageMenuOption;
+  public setLabel(label: string): MessageMenuOption;
+  public setValue(value: string): MessageMenuOption;
+  public setDescription(value: string): MessageMenuOption;
+  public setDefault(def?: Boolean): MessageMenuOption;
+  public setEmoji(emoji: string|GuildButtonEmoji, animted?: Boolean): MessageMenuOption;
+  public toJSON(): MessageMenuOptionsData;
 }
 
 export interface MessageOptions extends discord.MessageOptions {
