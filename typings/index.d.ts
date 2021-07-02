@@ -303,6 +303,43 @@ export class ButtonCollector extends Collector<Snowflake, MessageComponent> {
   once(event: string, listener: (...data: any[]) => Awaited<void>): this;
 }
 
+export interface MessageMenuCollectorOptions extends CollectorOptions
+{
+  max?: number;
+  // Button or menu? :thonk:
+  // maxButtons?: number;
+  maxUsers?: number;
+}
+
+export interface AwaitMessageMenuOptions extends MessageMenuCollectorOptions
+{
+  errors?: string[];
+}
+
+export class MenuCollector extends Collector
+{
+  constructor(data: any, filter: CollectorFilter, options?: MessageMenuCollectorOptions)
+  public message: Message;
+  public users: Collection<Snowflake, User>;
+  public total: number;
+  public _handleChannelDeletion(channel: Channel): void
+  public _handleGuildDeletion(guild: Guild): void;
+  public _handleMessageDeletion(message: Message): void;
+
+  public collect(menu: MessageMenu): Snowflake;
+  public dispose(menu: MessageMenu): Snowflake;
+  public empty(): void
+  public endReason(): string | null;
+
+  on(event: 'collect' | 'dispose', listener: (interaction: MessageComponent) => Awaited<void>): this;
+  on(event: 'end', listener: (collected: Collection<Snowflake, MessageComponent>, reason: string) => Awaited<void>): this;
+  on(event: string, listener: (...data: any[]) => Awaited<void>): this;
+
+  once(event: 'collect' | 'dispose', listener: (interaction: MessageComponent) => Awaited<void>): this;
+  once(event: 'end', listener: (collected: Collection<Snowflake, MessageComponent>, reason: string) => Awaited<void>): this;
+  once(event: string, listener: (...data: any[]) => Awaited<void>): this;
+}
+
 export type MessageAdditions =
   | MessageEmbed
   | MessageAttachment
