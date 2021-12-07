@@ -1,6 +1,5 @@
-const { Collector } = require('discord.js');
-const Collection = require('discord.js').Collection;
-const { Events } = require('discord.js').Constants;
+const { Collection } = require('eris');
+const Collector = require('./Collector');
 
 class MenuCollector extends Collector {
   constructor(data, filter, options = {}) {
@@ -19,15 +18,15 @@ class MenuCollector extends Collector {
 
     this.client.incrementMaxListeners();
     this.client.on('clickMenu', this.handleCollect);
-    this.client.on(Events.MESSAGE_DELETE, this._handleMessageDeletion);
-    this.client.on(Events.CHANNEL_DELETE, this._handleChannelDeletion);
-    this.client.on(Events.GUILD_DELETE, this._handleGuildDeletion);
+    this.client.on('messageDelete', this._handleMessageDeletion);
+    this.client.on('channelDelete', this._handleChannelDeletion);
+    this.client.on('guildDelete', this._handleGuildDeletion);
 
     this.once('end', () => {
       this.client.removeListener('clickMenu', this.handleCollect);
-      this.client.removeListener(Events.MESSAGE_DELETE, this._handleMessageDeletion);
-      this.client.removeListener(Events.CHANNEL_DELETE, this._handleChannelDeletion);
-      this.client.removeListener(Events.GUILD_DELETE, this._handleGuildDeletion);
+      this.client.removeListener('messageDelete', this._handleMessageDeletion);
+      this.client.removeListener('channelDelete', this._handleChannelDeletion);
+      this.client.removeListener('guildDelete', this._handleGuildDeletion);
       this.client.decrementMaxListeners();
     });
 

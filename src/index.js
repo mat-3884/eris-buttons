@@ -1,100 +1,82 @@
-const { Structures, Client } = require('discord.js');
-const MessageComponent = require('./v12/Classes/MessageComponent');
-const TextChannel = require('./v12/Classes/TextChannel');
-const DMChannel = require('./v12/Classes/DMChannel');
-const NewsChannel = require('./v12/Classes/NewsChannel');
-const Message = require('./v12/Classes/Message');
-const { MessageComponentTypes } = require('./v12/Constants');
+const Eris = require('eris');
+const Message = require('./v0.16.x/Classes/Message');
+const { MessageComponentTypes } = require('./v0.16.x/Constants');
 
-var version = require('discord.js').version.split('');
-if (version.includes('(')) {
-  version = version.join('').split('(').pop().split('');
-}
-version = parseInt(version[0] + version[1]);
+const version = require('eris').VERSION;
 
+/**
+ * @param {Eris.Client} client
+ */
 module.exports = (client) => {
-  if (version != 12) {
-    throw new Error('The discord.js version must be v12 or high');
+  if (!version.startsWith('0.16')) {
+    throw new Error('The eris version must be v0.16.0 or higher');
   }
 
-  if (!client || !client instanceof Client) throw new Error("INVALID_CLIENT_PROVIDED: The Discord.js Client isn't provided or it's invalid.");
+  if (!client || !client instanceof Eris.Client) throw new Error("INVALID_CLIENT_PROVIDED: The Eris Client isn't provided or it's invalid.");
 
-  const message = Structures.get('Message');
+  const message = Eris.Message;
   if (!message.createButtonCollector || typeof message.createButtonCollector !== 'function') {
-    Structures.extend('TextChannel', () => TextChannel);
-    Structures.extend('DMChannel', () => DMChannel);
-    Structures.extend('NewsChannel', () => NewsChannel);
-    Structures.extend('Message', () => Message);
+    Object.defineProperty(Eris, 'Message', { value: Message });
   }
 
-  client.ws.on('INTERACTION_CREATE', (data) => {
-    if (!data.data.component_type) return;
+  client.on('interactionCreate', (interaction) => {
+    if (!(interaction instanceof Eris.ComponentInteraction)) return;
 
-    switch (data.data.component_type) {
+    switch (interaction.data.component_type) {
       case MessageComponentTypes.BUTTON:
-        client.emit('clickButton', new MessageComponent(client, data));
+        client.emit('clickButton', interaction);
         break;
 
       case MessageComponentTypes.SELECT_MENU:
-        client.emit('clickMenu', new MessageComponent(client, data, true));
+        client.emit('clickMenu', interaction);
         break;
 
       default:
-        client.emit('debug', `Got unknown interaction component type, ${data.data.component_type}`);
+        client.emit('debug', `Got unknown interaction component type, ${interaction.data.component_type}`);
         break;
     }
   });
 };
 
 module.exports.multipleImport = (...clients) => {
-  if (version != 12) {
-    throw new Error('The discord.js version must be v12 or high');
+  if (!version.startsWith('0.16')) {
+    throw new Error('The Eris version must be v0.16.0 or higher');
   }
 
-  const message = Structures.get('Message');
+  const message = Eris.Message;
   if (!message.createButtonCollector || typeof message.createButtonCollector !== 'function') {
-    Structures.extend('TextChannel', () => TextChannel);
-    Structures.extend('DMChannel', () => DMChannel);
-    Structures.extend('NewsChannel', () => NewsChannel);
-    Structures.extend('Message', () => Message);
+    Object.defineProperty(Eris, 'Message', { value: Message });
   }
 
   clients.forEach((client) => {
-    if (!client || !client instanceof Client) throw new Error("INVALID_CLIENT_PROVIDED: The Discord.js Client isn't provided or it's invalid.");
+    if (!client || !client instanceof Eris.Client) throw new Error("INVALID_CLIENT_PROVIDED: The Eris Client isn't provided or it's invalid.");
 
-    client.ws.on('INTERACTION_CREATE', (data) => {
-      if (!data.data.component_type) return;
+    client.on('interactionCreate', (interaction) => {
+      if (!(interaction instanceof Eris.ComponentInteraction)) return;
 
-      switch (data.data.component_type) {
+      switch (interaction.data.component_type) {
         case MessageComponentTypes.BUTTON:
-          client.emit('clickButton', new MessageComponent(client, data));
+          client.emit('clickButton', interaction);
           break;
 
         case MessageComponentTypes.SELECT_MENU:
-          client.emit('clickMenu', new MessageComponent(client, data, true));
+          client.emit('clickMenu', interaction);
           break;
         default:
-          client.emit('debug', `Got unknown interaction component type, ${data.data.component_type}`);
+          client.emit('debug', `Got unknown interaction component type, ${interaction.data.component_type}`);
           break;
       }
     });
   });
 };
 
-module.exports.MessageButton = require(`./v12/Classes/MessageButton`);
-module.exports.MessageMenu = require(`./v12/Classes/MessageMenu`);
-module.exports.MessageMenuOption = require(`./v12/Classes/MessageMenuOption`);
-module.exports.MessageActionRow = require('./v12/Classes/MessageActionRow');
-module.exports.MessageComponent = require('./v12/Classes/MessageComponent');
-module.exports.Message = require(`./v12/Classes/Message`);
-module.exports.ButtonCollector = require(`./v12/Classes/ButtonCollector`);
-module.exports.MenuCollector = require(`./v12/Classes/MenuCollector`);
-module.exports.APIMessage = require('./v12/Classes/APIMessage').APIMessage;
-module.exports.sendAPICallback = require('./v12/Classes/APIMessage').sendAPICallback;
-module.exports.DMChannel = require('./v12/Classes/DMChannel');
-module.exports.NewsChannel = require('./v12/Classes/NewsChannel');
-module.exports.TextChannel = require('./v12/Classes/TextChannel');
-module.exports.WebhookClient = require('./v12/Classes/WebhookClient');
-module.exports.Util = require('./v12/Util');
-module.exports.Constants = require('./v12/Constants');
-module.exports.InteractionReply = require(`./v12/Classes/managers/InteractionReply`);
+module.exports.MessageButton = require(`./v0.16.x/Classes/MessageButton`);
+module.exports.MessageMenu = require(`./v0.16.x/Classes/MessageMenu`);
+module.exports.MessageMenuOption = require(`./v0.16.x/Classes/MessageMenuOption`);
+module.exports.MessageActionRow = require('./v0.16.x/Classes/MessageActionRow');
+module.exports.MessageComponent = require('./v0.16.x/Classes/MessageComponent');
+module.exports.Message = require(`./v0.16.x/Classes/Message`);
+module.exports.ButtonCollector = require(`./v0.16.x/Classes/ButtonCollector`);
+module.exports.MenuCollector = require(`./v0.16.x/Classes/MenuCollector`);
+module.exports.Util = require('./v0.16.x/Util');
+module.exports.Constants = require('./v0.16.x/Constants');

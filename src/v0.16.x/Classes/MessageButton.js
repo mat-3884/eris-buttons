@@ -1,6 +1,5 @@
 const { MessageComponentTypes } = require('../Constants.js');
 const BaseMessageComponent = require('./interfaces/BaseMessageComponent');
-const { resolveString } = require('discord.js').Util;
 const { resolveStyle } = require('../Util');
 
 class MessageButton extends BaseMessageComponent {
@@ -12,13 +11,13 @@ class MessageButton extends BaseMessageComponent {
   setup(data) {
     this.style = 'style' in data ? resolveStyle(data.style) : null;
 
-    this.label = 'label' in data && data.label ? resolveString(data.label) : undefined;
+    this.label = 'label' in data && data.label ? data.label : undefined;
 
     this.disabled = 'disabled' in data ? data.disabled : false;
 
     if (data.emoji) this.setEmoji(data.emoji);
 
-    if ('url' in data && data.url) this.url = resolveString(data.url);
+    if ('url' in data && data.url) this.url = data.url;
     else this.url = undefined;
 
     if (('id' in data && data.id) || ('custom_id' in data && data.custom_id)) this.custom_id = data.id || data.custom_id;
@@ -34,7 +33,7 @@ class MessageButton extends BaseMessageComponent {
   }
 
   setLabel(label) {
-    label = resolveString(label);
+    label = label;
     this.label = label;
     return this;
   }
@@ -46,12 +45,12 @@ class MessageButton extends BaseMessageComponent {
   }
 
   setURL(url) {
-    this.url = resolveString(url);
+    this.url = url;
     return this;
   }
 
   setID(id) {
-    this.custom_id = resolveString(id);
+    this.custom_id = id;
     return this;
   }
 

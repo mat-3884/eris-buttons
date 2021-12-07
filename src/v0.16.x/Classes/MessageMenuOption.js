@@ -1,14 +1,12 @@
-const { resolveString } = require('discord.js').Util;
-
 class MessageMenuOption {
   constructor(data = {}) {
     this.setup(data);
   }
 
   setup(data) {
-    this.label = 'label' in data && data.label ? resolveString(data.label) : undefined;
+    this.label = 'label' in data && data.label ? data.label : undefined;
 
-    this.value = 'value' in data && data.value ? resolveString(data.value) : undefined;
+    this.value = 'value' in data && data.value ? data.value : undefined;
 
     if (data.emoji) this.setEmoji(data.emoji);
 
@@ -18,17 +16,17 @@ class MessageMenuOption {
   }
 
   setLabel(label) {
-    this.label = resolveString(label);
+    this.label = label;
     return this;
   }
 
   setValue(value) {
-    this.value = resolveString(value);
+    this.value = value;
     return this;
   }
 
   setDescription(value) {
-    this.description = resolveString(value);
+    this.description = value;
     return this;
   }
 

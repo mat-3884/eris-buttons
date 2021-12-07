@@ -1,7 +1,6 @@
-const Message = require('discord.js').Structures.get('Message');
+const { Message } = require('eris');
 const ButtonCollector = require('./ButtonCollector');
 const MenuCollector = require('./MenuCollector');
-const APIMessage = require('./APIMessage').APIMessage;
 const BaseMessageComponent = require('./interfaces/BaseMessageComponent');
 
 class ExtendedMessage extends Message {
@@ -46,22 +45,6 @@ class ExtendedMessage extends Message {
           resolve(menus);
         }
       });
-    });
-  }
-
-  reply(content, options) {
-    return this.channel.send(
-      content instanceof APIMessage ? content : APIMessage.transformOptions(content, options, { reply: this.member || this.author }),
-    );
-  }
-
-  edit(content, options) {
-    if (options === null && options !== undefined) options = { components: null };
-    const { data } = content instanceof APIMessage ? content.resolveData() : APIMessage.create(this, content, options).resolveData();
-    return this.client.api.channels[this.channel.id].messages[this.id].patch({ data }).then((d) => {
-      const clone = this._clone();
-      clone._patch(d);
-      return clone;
     });
   }
 }

@@ -1,38 +1,24 @@
 {
-  "name": "discord-buttons",
-  "version": "4.0.0",
-  "description": "Discord.js buttons",
+  "name": "eris-buttons",
+  "version": "0.0.1",
+  "description": "Eris buttons",
   "main": "src/index.js",
-  "types": "typings/index.d.ts",
   "scripts": {
-    "format": "prettier --write \"typings/*.ts\" \"src/**/*.js\"",
-    "version": "npm run format"
-  },
-  "funding": {
-    "type": "individual",
-    "url": "https://ko-fi.com/angelocore"
+    "format": "prettier --write \"src/**/*.js\""
   },
   "keywords": [
-    "discord.js",
-    "discordbuttons",
-    "buttonsbot",
-    "discordjsbuttons",
-    "buttons",
-    "discordjsbuttons",
-    "button",
-    "src",
-    "clickbois"
+    "eris",
+    "eris buttons"
   ],
-  "author": "Angelo II#0007",
+  "author": "mat-3884",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/discord-buttons/discord-buttons.git"
+    "url": "git+https://github.com/mat-3884/eris-buttons.git"
   },
   "bugs": {
-    "url": "https://github.com/discord-buttons/discord-buttons/issues"
+    "url": "https://github.com/mat-3884/eris-buttons/issues"
   },
-  "homepage": "https://discord-buttons.js.org",
   "devDependencies": {
     "@types/node": "^15.3.0",
     "prettier": "^2.3.2"
