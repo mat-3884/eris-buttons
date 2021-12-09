@@ -1,6 +1,6 @@
 const { Message } = require('eris');
 const ButtonCollector = require('./ButtonCollector');
-const MenuCollector = require('./MenuCollector');
+const SelectMenuCollector = require('./SelectMenuCollector');
 const BaseMessageComponent = require('./interfaces/BaseMessageComponent');
 
 class ExtendedMessage extends Message {
@@ -31,13 +31,13 @@ class ExtendedMessage extends Message {
     });
   }
 
-  createMenuCollector(filter, options = {}) {
-    return new MenuCollector(this, filter, options);
+  createSelectMenuCollector(filter, options = {}) {
+    return new SelectMenuCollector(this, filter, options);
   }
 
-  awaitMenus(filter, options = {}) {
+  awaitSelectMenus(filter, options = {}) {
     return new Promise((resolve, reject) => {
-      const collector = this.createMenuCollector(filter, options);
+      const collector = this.createSelectMenuCollector(filter, options);
       collector.once('end', (menus, reason) => {
         if (options.errors && options.errors.includes(reason)) {
           reject(menus);

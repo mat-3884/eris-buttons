@@ -1,9 +1,9 @@
 const { MessageComponentTypes } = require('../Constants.js');
 const BaseMessageComponent = require('./interfaces/BaseMessageComponent');
 const { resolveMaxValues, resolveMinValues } = require('../Util');
-const MessageMenuOption = require('./MessageMenuOption');
+const MessageSelectMenuOption = require('./MessageSelectMenuOption');
 
-class MessageMenu extends BaseMessageComponent {
+class MessageSelectMenu extends BaseMessageComponent {
   constructor(data = {}) {
     super({ type: 'SELECT_MENU' });
     this.setup(data);
@@ -24,7 +24,7 @@ class MessageMenu extends BaseMessageComponent {
 
     if ('options' in data) {
       data.options.map((c) => {
-        this.options.push(new MessageMenuOption(c).toJSON());
+        this.options.push(new MessageSelectMenuOption(c).toJSON());
       });
     }
 
@@ -61,12 +61,12 @@ class MessageMenu extends BaseMessageComponent {
   }
 
   addOptions(...options) {
-    this.options.push(...options.flat(Infinity).map((c) => new MessageMenuOption(c).toJSON()));
+    this.options.push(...options.flat(Infinity).map((c) => new MessageSelectMenuOption(c).toJSON()));
     return this;
   }
 
   removeOptions(index, deleteCount, ...options) {
-    this.components.splice(index, deleteCount, ...options.flat(Infinity).map((c) => new MessageMenuOption(c).toJSON()));
+    this.components.splice(index, deleteCount, ...options.flat(Infinity).map((c) => new MessageSelectMenuOption(c).toJSON()));
     return this;
   }
 
@@ -82,4 +82,4 @@ class MessageMenu extends BaseMessageComponent {
   }
 }
 
-module.exports = MessageMenu;
+module.exports = MessageSelectMenu;

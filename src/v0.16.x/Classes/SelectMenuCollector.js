@@ -1,7 +1,7 @@
 const { Collection } = require('eris');
 const Collector = require('./Collector');
 
-class MenuCollector extends Collector {
+class SelectMenuCollector extends Collector {
   constructor(data, filter, options = {}) {
     super(data.client, filter, options);
 
@@ -84,4 +84,4 @@ class MenuCollector extends Collector {
   }
 }
 
-module.exports = MenuCollector;
+module.exports = SelectMenuCollector;

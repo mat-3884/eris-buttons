@@ -1,5 +1,5 @@
 const MessageButton = require('./MessageButton');
-const MessageMenu = require('./MessageMenu');
+const MessageSelectMenu = require('./MessageSelectMenu');
 const { MessageComponentTypes } = require('../Constants');
 const BaseMessageComponent = require('./interfaces/BaseMessageComponent');
 
@@ -40,14 +40,14 @@ class MessageActionRow extends BaseMessageComponent {
     return {
       components: this.components
         ? this.components.map((c) => {
-            if (c instanceof MessageButton || c instanceof MessageMenu) {
+            if (c instanceof MessageButton || c instanceof MessageSelectMenu) {
               return c;
             } else {
               switch (c.type) {
                 case MessageComponentTypes.BUTTON:
                   return new MessageButton(c);
                 case MessageComponentTypes.SELECT_MENU:
-                  return new MessageMenu(c);
+                  return new MessageSelectMenu(c);
               }
             }
           })

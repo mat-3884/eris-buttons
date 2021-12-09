@@ -24,13 +24,13 @@ class BaseMessageComponent {
         break;
       }
       case MessageComponentTypes.SELECT_MENU: {
-        const MessageMenu = require('../MessageMenu');
-        component = new MessageMenu(data).toJSON();
+        const MessageSelectMenu = require('../MessageSelectMenu');
+        component = new MessageSelectMenu(data).toJSON();
         break;
       }
       case 'SELECT_MENU_OPTION': {
-        const MessageMenuOption = require('../MessageMenuOption');
-        component = new MessageMenuOption(data).toJSON();
+        const MessageSelectMenuOption = require('../MessageSelectMenuOption');
+        component = new MessageSelectMenuOption(data).toJSON();
         break;
       }
     }

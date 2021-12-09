@@ -1,4 +1,4 @@
-class MessageMenuOption {
+class MessageSelectMenuOption {
   constructor(data = {}) {
     this.setup(data);
   }
@@ -65,4 +65,4 @@ class MessageMenuOption {
   }
 }
 
-module.exports = MessageMenuOption;
+module.exports = MessageSelectMenuOption;

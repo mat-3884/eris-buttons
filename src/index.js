@@ -71,12 +71,11 @@ module.exports.multipleImport = (...clients) => {
 };
 
 module.exports.MessageButton = require(`./v0.16.x/Classes/MessageButton`);
-module.exports.MessageMenu = require(`./v0.16.x/Classes/MessageMenu`);
-module.exports.MessageMenuOption = require(`./v0.16.x/Classes/MessageMenuOption`);
+module.exports.MessageSelectMenu = require(`./v0.16.x/Classes/MessageSelectMenu`);
+module.exports.MessageSelectMenuOption = require(`./v0.16.x/Classes/MessageSelectMenuOption`);
 module.exports.MessageActionRow = require('./v0.16.x/Classes/MessageActionRow');
-module.exports.MessageComponent = require('./v0.16.x/Classes/MessageComponent');
 module.exports.Message = require(`./v0.16.x/Classes/Message`);
 module.exports.ButtonCollector = require(`./v0.16.x/Classes/ButtonCollector`);
-module.exports.MenuCollector = require(`./v0.16.x/Classes/MenuCollector`);
+module.exports.SelectMenuCollector = require(`./v0.16.x/Classes/SelectMenuCollector`);
 module.exports.Util = require('./v0.16.x/Util');
 module.exports.Constants = require('./v0.16.x/Constants');
