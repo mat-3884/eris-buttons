@@ -1,21 +1,21 @@
-const MessageButton = require('./MessageButton');
-const MessageSelectMenu = require('./MessageSelectMenu');
-const { MessageComponentTypes } = require('../Constants');
-const BaseMessageComponent = require('./interfaces/BaseMessageComponent');
+const MessageButton = require("./MessageButton");
+const MessageSelectMenu = require("./MessageSelectMenu");
+const { MessageComponentTypes } = require("../Constants");
+const BaseMessageComponent = require("./interfaces/BaseMessageComponent");
 
 class MessageActionRow extends BaseMessageComponent {
   constructor(data = {}) {
-    super({ type: 'ACTION_ROW' });
+    super({ type: "ACTION_ROW" });
     this.setup(data);
   }
 
   setup(data) {
-    if ('component' in data) {
+    if ("component" in data) {
       this.component = BaseMessageComponent.create(component);
     }
 
     this.components = [];
-    if ('components' in data) {
+    if ("components" in data) {
       this.components = data.components.map((c) => BaseMessageComponent.create(c));
     }
 
@@ -52,7 +52,7 @@ class MessageActionRow extends BaseMessageComponent {
             }
           })
         : [],
-      type: MessageComponentTypes[this.type],
+      type: MessageComponentTypes[this.type]
     };
   }
 }

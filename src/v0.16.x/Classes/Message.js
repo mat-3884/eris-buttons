@@ -1,7 +1,7 @@
-const { Message } = require('eris');
-const ButtonCollector = require('./ButtonCollector');
-const SelectMenuCollector = require('./SelectMenuCollector');
-const BaseMessageComponent = require('./interfaces/BaseMessageComponent');
+const { Message } = require("eris");
+const ButtonCollector = require("./ButtonCollector");
+const SelectMenuCollector = require("./SelectMenuCollector");
+const BaseMessageComponent = require("./interfaces/BaseMessageComponent");
 
 class ExtendedMessage extends Message {
   _patch(data) {
@@ -21,7 +21,7 @@ class ExtendedMessage extends Message {
   awaitButtons(filter, options = {}) {
     return new Promise((resolve, reject) => {
       const collector = this.createButtonCollector(filter, options);
-      collector.once('end', (buttons, reason) => {
+      collector.once("end", (buttons, reason) => {
         if (options.errors && options.errors.includes(reason)) {
           reject(buttons);
         } else {
@@ -38,7 +38,7 @@ class ExtendedMessage extends Message {
   awaitSelectMenus(filter, options = {}) {
     return new Promise((resolve, reject) => {
       const collector = this.createSelectMenuCollector(filter, options);
-      collector.once('end', (menus, reason) => {
+      collector.once("end", (menus, reason) => {
         if (options.errors && options.errors.includes(reason)) {
           reject(menus);
         } else {

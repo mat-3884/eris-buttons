@@ -1,34 +1,34 @@
-const { MessageComponentTypes } = require('../Constants.js');
-const BaseMessageComponent = require('./interfaces/BaseMessageComponent');
-const { resolveMaxValues, resolveMinValues } = require('../Util');
-const MessageSelectMenuOption = require('./MessageSelectMenuOption');
+const { MessageComponentTypes } = require("../Constants.js");
+const BaseMessageComponent = require("./interfaces/BaseMessageComponent");
+const { resolveMaxValues, resolveMinValues } = require("../Util");
+const MessageSelectMenuOption = require("./MessageSelectMenuOption");
 
 class MessageSelectMenu extends BaseMessageComponent {
   constructor(data = {}) {
-    super({ type: 'SELECT_MENU' });
+    super({ type: "SELECT_MENU" });
     this.setup(data);
   }
 
   setup(data) {
-    this.placeholder = 'placeholder' in data ? data.placeholder : null;
+    this.placeholder = "placeholder" in data ? data.placeholder : null;
 
-    this.max_values = ('maxValues' in data) | ('max_values' in data) ? resolveMaxValues(data.maxValues, data.max_values) : undefined;
+    this.max_values = ("maxValues" in data) | ("max_values" in data) ? resolveMaxValues(data.maxValues, data.max_values) : undefined;
 
-    this.min_values = ('minValues' in data) | ('min_values' in data) ? resolveMinValues(data.minValues, data.min_values) : undefined;
+    this.min_values = ("minValues" in data) | ("min_values" in data) ? resolveMinValues(data.minValues, data.min_values) : undefined;
 
     this.options = [];
-    if ('option' in data) {
-      data.option.type = 'SELECT_MENU_OPTION';
+    if ("option" in data) {
+      data.option.type = "SELECT_MENU_OPTION";
       this.options.push(BaseMessageComponent.create(data.option));
     }
 
-    if ('options' in data) {
+    if ("options" in data) {
       data.options.map((c) => {
         this.options.push(new MessageSelectMenuOption(c).toJSON());
       });
     }
 
-    if (('id' in data && data.id) || ('custom_id' in data && data.custom_id)) this.custom_id = data.id || data.custom_id;
+    if (("id" in data && data.id) || ("custom_id" in data && data.custom_id)) this.custom_id = data.id || data.custom_id;
     else this.custom_id = undefined;
 
     return this;
@@ -55,7 +55,7 @@ class MessageSelectMenu extends BaseMessageComponent {
   }
 
   addOption(option) {
-    option.type = 'SELECT_MENU_OPTION';
+    option.type = "SELECT_MENU_OPTION";
     this.options.push(BaseMessageComponent.create(option));
     return this;
   }
@@ -77,7 +77,7 @@ class MessageSelectMenu extends BaseMessageComponent {
       custom_id: this.custom_id,
       max_values: this.max_values,
       min_values: this.min_values,
-      options: this.options,
+      options: this.options
     };
   }
 }

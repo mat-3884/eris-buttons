@@ -4,13 +4,13 @@ class MessageSelectMenuOption {
   }
 
   setup(data) {
-    this.label = 'label' in data && data.label ? data.label : undefined;
+    this.label = "label" in data && data.label ? data.label : undefined;
 
-    this.value = 'value' in data && data.value ? data.value : undefined;
+    this.value = "value" in data && data.value ? data.value : undefined;
 
     if (data.emoji) this.setEmoji(data.emoji);
 
-    this.description = 'description' in data ? data.description : undefined;
+    this.description = "description" in data ? data.description : undefined;
 
     return this;
   }
@@ -36,11 +36,11 @@ class MessageSelectMenuOption {
   }
 
   setEmoji(emoji, animated) {
-    if (!emoji) throw new Error('MISSING_EMOJI: On this option was used `.setEmoji` method without emoji');
+    if (!emoji) throw new Error("MISSING_EMOJI: On this option was used `.setEmoji` method without emoji");
 
     this.emoji = {
       id: undefined,
-      name: undefined,
+      name: undefined
     };
 
     if (!isNaN(emoji)) this.emoji.id = emoji;
@@ -49,7 +49,7 @@ class MessageSelectMenuOption {
 
     if (!this.emoji.id && !this.emoji.name) this.emoji.name = emoji;
 
-    if (typeof animated === 'boolean') this.emoji.animated = animated;
+    if (typeof animated === "boolean") this.emoji.animated = animated;
 
     return this;
   }
@@ -60,7 +60,7 @@ class MessageSelectMenuOption {
       value: this.value,
       default: this.default,
       emoji: this.emoji,
-      description: this.description,
+      description: this.description
     };
   }
 }

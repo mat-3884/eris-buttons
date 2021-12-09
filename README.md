@@ -11,10 +11,10 @@
 
 ## Requirements
 
-|                                        | Minimum | Recommended | Latest  |
-| :------------------------------------: | :-----: | :---------: | :-----: |
-|     [Node.js](https://nodejs.org)      |  v12.x  |    v16.x    | v17.2.0 |
-| [Eris](https://npmjs.org/package/eris) | v0.16.0 |   v0.16.1   | v0.16.1 |
+|                                        | Minimum | Recommended |
+| :------------------------------------: | :-----: | :---------: |
+|     [Node.js](https://nodejs.org)      |  v12.x  |    v16.x    |
+| [Eris](https://npmjs.org/package/eris) | v0.16.0 |   v0.16.1   |
 
 ## Installation
 
@@ -33,10 +33,11 @@ yarn add eris-buttons
 ## Setup
 
 ```js
-const Eris = require('eris');
-const eris_buttons = require('eris-buttons');
-const client = new Eris.Client('Bot YOUR_BOT_TOKEN', {
-  intents: [],
+const Eris = require("eris");
+const eris_buttons = require("eris-buttons");
+
+const client = new Eris.Client("Bot YOUR_BOT_TOKEN", {
+  intents: []
 });
 eris_buttons(client);
 ```
@@ -47,7 +48,7 @@ Coming soon.
 
 ## TypeScript
 
-Typings for this package is still not created and will be added soon.
+I have created the typings as best as I can, however if there are any errors or issues, please create an [issue template](https://github.com/mat-3884/eris-buttons/issues) or join in my [server](https://discord.gg/KJk64ZNwUF).
 
 ## Disclaimer
 
