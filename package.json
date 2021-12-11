@@ -1,6 +1,6 @@
 {
   "name": "eris-buttons",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A package similar to discord-buttons made in Eris.",
   "main": "src/index.js",
   "types": "typings/index.d.ts",

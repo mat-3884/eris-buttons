@@ -28,7 +28,7 @@ const Constants = require("./v0.16.x/Constants");
    * @param {Eris.Client} client
    */
   (module.exports = (client) => {
-    if (!version.endsWith("16.0")) {
+    if (!version.startsWith("0.16")) {
       throw new Error("The eris version must be v0.16.0 or higher");
     }
 
