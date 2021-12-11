@@ -1,15 +1,17 @@
-import Eris, { Client, Channel, Guild, User } from "eris";
+import Eris, { PartialEmoji, Client, User, Channel, Guild } from "eris";
 import { EventEmitter } from "node:events";
 
 declare module "eris" {
   export interface EventListeners {
-    clickButton: [MessageComponent];
-    clickMenu: [MessageComponent];
+    clickButton: [ComponentInteraction];
+    clickMenu: [ComponentInteraction];
   }
 
   export interface Message {
     createButtonCollector(filter: CollectorFilter, options?: AwaitMessageButtonOptions): ButtonCollector;
     awaitButtons(filter: CollectorFilter, options?: AwaitMessageButtonOptions): Promise<Map<Snowflake, MessageComponent>>;
+    createSelectMenuCollector(filter: CollectorFilter, options?: AwaitMessageSelectMenuOptions): SelectMenuCollector;
+    awaitSelectMenus(filter: CollectorFilter, options?: AwaitMessageSelectMenuOptions): Promise<Map<Snowflake, MessageComponent>>;
   }
 }
 
@@ -20,14 +22,6 @@ export enum MessageComponentTypes {
 }
 
 export enum MessageButtonStyles {
-  blurple = 1,
-  grey = 2,
-  green = 3,
-  red = 4,
-  url = 5,
-
-  //Aliases
-  gray = 2,
   PRIMARY = 1,
   SECONDARY = 2,
   SUCCESS = 3,
@@ -41,6 +35,8 @@ export enum MessageButtonStyles {
 export declare type Snowflake = string;
 
 export type MessageComponent = BaseMessageComponent | MessageActionRow | MessageButton | MessageSelectMenu;
+
+export type MessageActionRowComponents = MessageButton | MessageSelectMenu;
 
 export type MessageButtonStyle = keyof typeof MessageButtonStyles;
 
@@ -70,18 +66,12 @@ export interface CollectorOptions {
   dispose?: boolean;
 }
 
-export interface GuildButtonEmoji {
-  name?: string;
-  id?: Snowflake;
-  animated?: boolean;
-}
-
 export interface MessageButtonOptions {
   type: MessageComponentTypes.BUTTON;
   style: MessageButtonStyleResolvable;
   label?: string;
   disabled?: boolean;
-  emoji?: string | GuildButtonEmoji;
+  emoji?: Partial<PartialEmoji>;
   url?: string;
   id?: string;
   custom_id?: string;
@@ -90,7 +80,7 @@ export interface MessageButtonOptions {
 export interface MessageSelectMenuOptions {
   type: MessageComponentTypes.SELECT_MENU;
   label?: string;
-  emoji?: string | GuildButtonEmoji;
+  emoji?: Partial<PartialEmoji>;
   description?: string;
   value?: string;
 }
@@ -100,14 +90,14 @@ export interface MessageButtonData {
   style: MessageButtonStyles | number;
   label?: string;
   disabled?: boolean;
-  emoji?: GuildButtonEmoji;
+  emoji?: Partial<PartialEmoji>;
   url?: string;
   custom_id?: string;
 }
 
 export interface MessageActionRowData {
-  type: number | string;
-  components: MessageButton[];
+  type: MessageComponentTypes.ACTION_ROW;
+  components: MessageActionRowComponents[];
 }
 
 export interface MessageSelectMenuData {
@@ -121,7 +111,7 @@ export interface MessageSelectMenuData {
 
 export interface MessageSelectMenuOptionsData {
   label?: string;
-  emoji?: string | GuildButtonEmoji;
+  emoji?: Partial<PartialEmoji>;
   description?: string;
   value?: string;
 }
@@ -230,23 +220,25 @@ export class BaseMessageComponent {
 export class MessageActionRow extends BaseMessageComponent {
   constructor(data?: {});
   setup(data: any): MessageActionRow;
-  component: MessageButton | MessageSelectMenu;
-  components: MessageButton[] | MessageSelectMenu[];
-  addComponents(...components: MessageButton[] | MessageSelectMenu[]): MessageActionRow;
-  addComponent(component: MessageButton | MessageSelectMenu): MessageActionRow;
+  type: MessageComponentTypes.ACTION_ROW;
+  component: MessageActionRowComponents[];
+  components: MessageActionRowComponents[];
+  addComponents(...components: MessageActionRowComponents[]): MessageActionRow;
+  addComponent(component: MessageActionRowComponents): MessageActionRow;
   toJSON(): {
-    components: MessageButton[];
-    type: string | number;
+    components: MessageActionRowComponents[];
+    type: MessageComponentTypes.ACTION_ROW;
   };
 }
 
 export class MessageButton extends BaseMessageComponent {
   constructor(data?: MessageButton | MessageButtonData | MessageButtonOptions);
   public setup(data: any): MessageButton;
+  public type: MessageComponentTypes.BUTTON;
   public style: MessageButtonStyles;
   public label: string;
   public disabled: boolean;
-  public emoji: GuildButtonEmoji;
+  public emoji: Partial<PartialEmoji>;
   public url: string;
   public custom_id: string;
   public setStyle(style: MessageButtonStyleResolvable): MessageButton;
@@ -265,7 +257,7 @@ export class MessageSelectMenu extends BaseMessageComponent {
   public min_values: number;
   public options: MessageSelectMenuOption[];
   public custom_id: string;
-  public type: string;
+  public type: MessageComponentTypes.SELECT_MENU;
   public setup(data: any): MessageSelectMenu;
   public setPlaceholder(label: string): MessageSelectMenu;
   public setID(id: string): MessageSelectMenu;
@@ -281,16 +273,15 @@ export class MessageSelectMenuOption extends BaseMessageComponent {
   constructor(data?: MessageSelectMenuOptionsData);
   public default: boolean;
   public description: string;
-  public emoji: string | GuildButtonEmoji;
+  public emoji: Partial<PartialEmoji>;
   public label: string;
   public value: string;
-  public type: string;
   public setup(data: MessageSelectMenuOptions): MessageSelectMenuOption;
   public setLabel(label: string): MessageSelectMenuOption;
   public setValue(value: string): MessageSelectMenuOption;
   public setDescription(value: string): MessageSelectMenuOption;
   public setDefault(def?: boolean): MessageSelectMenuOption;
-  public setEmoji(emoji: string | GuildButtonEmoji, animted?: boolean): MessageSelectMenuOption;
+  public setEmoji(emoji: Partial<PartialEmoji>): MessageSelectMenuOption;
   public toJSON(): MessageSelectMenuOptionsData;
 }
 

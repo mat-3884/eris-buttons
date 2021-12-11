@@ -1,4 +1,4 @@
-const Collector = require("./Collector");
+const Collector = require("./interfaces/Collector");
 const { Collection } = require("eris");
 
 class ButtonCollector extends Collector {

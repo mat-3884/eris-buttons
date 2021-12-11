@@ -10,10 +10,6 @@ class MessageActionRow extends BaseMessageComponent {
   }
 
   setup(data) {
-    if ("component" in data) {
-      this.component = BaseMessageComponent.create(component);
-    }
-
     this.components = [];
     if ("components" in data) {
       this.components = data.components.map((c) => BaseMessageComponent.create(c));
@@ -23,6 +19,7 @@ class MessageActionRow extends BaseMessageComponent {
   }
 
   addComponents(...components) {
+    this.components.push();
     this.components.push(...components.flat(Infinity).map((c) => BaseMessageComponent.create(c)));
     return this;
   }

@@ -1,5 +1,5 @@
 const { Collection } = require("eris");
-const Collector = require("./Collector");
+const Collector = require("./interfaces/Collector");
 
 class SelectMenuCollector extends Collector {
   constructor(data, filter, options = {}) {

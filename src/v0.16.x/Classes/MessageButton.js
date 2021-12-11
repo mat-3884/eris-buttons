@@ -27,13 +27,11 @@ class MessageButton extends BaseMessageComponent {
   }
 
   setStyle(style) {
-    style = resolveStyle(style);
-    this.style = style;
+    this.style = resolveStyle(style);
     return this;
   }
 
   setLabel(label) {
-    label = label;
     this.label = label;
     return this;
   }

@@ -1,18 +1,13 @@
-const { MessageButtonStyles, MessageButtonStylesAliases, MessageComponentTypes } = require("./Constants.js");
+const { MessageButtonStyles: MessageButtonStylesAliases, MessageComponentTypes } = require("./Constants.js");
 
 module.exports = {
   resolveStyle(style) {
     if (!style || style === undefined || style === null) throw new TypeError("NO_BUTTON_STYLE: Please provide button style");
 
-    if (style === "gray") style = "grey";
-
-    if (
-      (!MessageButtonStyles[style] || MessageButtonStyles[style] === undefined || MessageButtonStyles[style] === null) &&
-      (!MessageButtonStylesAliases[style] || MessageButtonStylesAliases[style] === undefined || MessageButtonStylesAliases[style] === null)
-    )
+    if (!MessageButtonStylesAliases[style] || MessageButtonStylesAliases[style] === undefined || MessageButtonStylesAliases[style] === null)
       throw new TypeError("INVALID_BUTTON_STYLE: An invalid button styles was provided");
 
-    return typeof style === "string" ? MessageButtonStyles[style] : style;
+    return typeof style === "string" ? MessageButtonStylesAliases[style] : style;
   },
   resolveButton(data) {
     if (data.type !== MessageComponentTypes.BUTTON) throw new TypeError("INVALID_BUTTON_TYPE: Invalid type");
@@ -24,15 +19,16 @@ module.exports = {
     if ("disabled" in data && typeof data.disabled !== "boolean")
       throw new TypeError("BUTTON_DISABLED: The button disabled option must be boolean (true/false)");
 
-    if (data.style === MessageButtonStyles["url"] && !data.url) throw new TypeError("NO_BUTTON_URL: You provided url style, you must provide an URL");
+    if (data.style === MessageButtonStylesAliases["url"] && !data.url)
+      throw new TypeError("NO_BUTTON_URL: You provided url style, you must provide an URL");
 
-    if (data.style !== MessageButtonStyles["url"] && data.url)
+    if (data.style !== MessageButtonStylesAliases["url"] && data.url)
       throw new TypeError("BOTH_URL_CUSTOM_ID: A custom id and url cannot both be specified");
 
-    if (data.style === MessageButtonStyles["url"] && data.custom_id)
+    if (data.style === MessageButtonStylesAliases["url"] && data.custom_id)
       throw new TypeError("BOTH_URL_CUSTOM_ID: A custom id and url cannot both be specified");
 
-    if (data.style !== MessageButtonStyles["url"] && !data.custom_id) throw new TypeError("NO_BUTTON_ID: Please provide button id");
+    if (data.style !== MessageButtonStylesAliases["url"] && !data.custom_id) throw new TypeError("NO_BUTTON_ID: Please provide button id");
 
     if (data.emoji && data.emoji.id && isNaN(data.emoji.id)) throw new TypeError("INCORRECT_EMOJI_ID: Please provide correct emoji id");
 
@@ -49,7 +45,7 @@ module.exports = {
       type: MessageComponentTypes.BUTTON
     };
   },
-  resolveMenu(data) {
+  resolveSelectMenu(data) {
     if (data.type !== MessageComponentTypes.SELECT_MENU) throw new TypeError("INVALID_MENU_TYPE: Invalid type");
 
     if (data.placeholder && typeof data.placeholder !== "string")
@@ -57,7 +53,7 @@ module.exports = {
 
     if (!data.custom_id) throw new Error("NO_MENU_ID: Please provide menu id");
 
-    let options = this.resolveMenuOptions(data.options);
+    let options = this.resolveSelectMenuOptions(data.options);
 
     if (options.length < 1) throw new Error("NO_BUTTON_OPTIONS: Please provide at least one menu option");
 
@@ -73,7 +69,7 @@ module.exports = {
       min_values: minValues
     };
   },
-  resolveMenuOptions(data) {
+  resolveSelectMenuOptions(data) {
     if (!Array.isArray(data)) throw new Error("INVALID_OPTIONS: The select menu options must be an array");
 
     let options = [];
