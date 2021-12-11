@@ -32,8 +32,7 @@ class SelectMenuCollector extends Collector {
 
     this.on("collect", async (menu) => {
       this.total++;
-      if (!menu.clicker.user) await menu.clicker.fetch();
-      this.users.set(menu.clicker.user.id, menu.clicker.user);
+      this.users.set(menu.member.id, menu.member.user);
     });
   }
 

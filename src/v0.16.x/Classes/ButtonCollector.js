@@ -1,5 +1,4 @@
 const Collector = require("./interfaces/Collector");
-const { Collection } = require("eris");
 
 class ButtonCollector extends Collector {
   constructor(data, filter, options = {}) {
@@ -7,7 +6,7 @@ class ButtonCollector extends Collector {
 
     this.message = data;
 
-    this.users = new Collection();
+    this.users = new Map();
 
     this.total = 0;
 
@@ -30,10 +29,9 @@ class ButtonCollector extends Collector {
       this.client.decrementMaxListeners();
     });
 
-    this.on("collect", async (button) => {
+    this.on("collect", (button) => {
       this.total++;
-      if (!button.clicker.user) await button.clicker.fetch();
-      this.users.set(button.clicker.user.id, button.clicker.user);
+      this.users.set(button.member.id, button.member.user);
     });
   }
 
