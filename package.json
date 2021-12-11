@@ -1,11 +1,11 @@
 {
   "name": "eris-buttons",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A package similar to discord-buttons made in Eris.",
   "main": "src/index.js",
   "types": "typings/index.d.ts",
   "scripts": {
-    "format": "prettier --write \"src/**/*.js\""
+    "format": "prettier --write \"typings/*.ts\" \"src/**/*.js\""
   },
   "keywords": [
     "eris",
@@ -22,7 +22,7 @@
     "url": "https://github.com/mat-3884/eris-buttons/issues"
   },
   "devDependencies": {
-    "@types/node": "^15.3.0",
-    "prettier": "^2.3.2"
+    "@types/node": "^16.11.12",
+    "prettier": "^2.5.1"
   }
 }

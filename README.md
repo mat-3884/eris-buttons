@@ -9,6 +9,14 @@
   </p>
 </div>
 
+## Disclaimer
+
+- This package is currently on development state, so use it at your own risk.
+
+## Note
+
+- This is the [Eris](https://npmjs.com/package/eris) version of [discord-buttons](https://npmjs.com/package/discord-buttons).
+
 ## Requirements
 
 |                                        | Minimum | Recommended |
@@ -45,16 +53,6 @@ eris_buttons(client);
 ## Examples
 
 Coming soon.
-
-## TypeScript
-
-I have created the typings as best as I can, however if there are any errors or issues, please create an [issue template](https://github.com/mat-3884/eris-buttons/issues) or join in my [server](https://discord.gg/KJk64ZNwUF).
-
-## Disclaimer
-
-- This package is currently on development state, so use it at your own risk.
-  <br><br>
-- This is the [Eris](https://npmjs.com/package/eris) version of [discord-buttons](https://npmjs.com/package/discord-buttons).
 
 ## Issue
 

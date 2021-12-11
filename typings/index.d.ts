@@ -1,10 +1,10 @@
-import Eris, { PartialEmoji, Client, User, Channel, Guild } from "eris";
+import Eris, { PartialEmoji, Client, User, Channel, Guild, ComponentInteraction } from "eris";
 import { EventEmitter } from "node:events";
 
 declare module "eris" {
   export interface EventListeners {
     clickButton: [ComponentInteraction];
-    clickMenu: [ComponentInteraction];
+    clickSelectMenu: [ComponentInteraction];
   }
 
   export interface Message {
@@ -42,7 +42,7 @@ export type MessageButtonStyle = keyof typeof MessageButtonStyles;
 
 export type MessageButtonStyleResolvable = MessageButtonStyle | MessageButtonStyles;
 
-export type CollectorFilter = (...args: any[]) => boolean | Promise<boolean>;
+export type CollectorFilter = (interaction: ComponentInteraction) => boolean | Promise<boolean>;
 
 export type Awaited<T> = T | Promise<T>;
 
@@ -276,6 +276,7 @@ export class MessageSelectMenuOption extends BaseMessageComponent {
   public emoji: Partial<PartialEmoji>;
   public label: string;
   public value: string;
+  public type: "SELECT_MENU_OPTION";
   public setup(data: MessageSelectMenuOptions): MessageSelectMenuOption;
   public setLabel(label: string): MessageSelectMenuOption;
   public setValue(value: string): MessageSelectMenuOption;

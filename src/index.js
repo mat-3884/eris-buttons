@@ -48,7 +48,7 @@ const Constants = require("./v0.16.x/Constants");
           break;
 
         case MessageComponentTypes.SELECT_MENU:
-          client.emit("clickMenu", interaction);
+          client.emit("clickSelectMenu", interaction);
           break;
 
         default:

@@ -17,13 +17,13 @@ class SelectMenuCollector extends Collector {
     this._handleMessageDeletion = this._handleMessageDeletion.bind(this);
 
     this.client.incrementMaxListeners();
-    this.client.on("clickMenu", this.handleCollect);
+    this.client.on("clickSelectMenu", this.handleCollect);
     this.client.on("messageDelete", this._handleMessageDeletion);
     this.client.on("channelDelete", this._handleChannelDeletion);
     this.client.on("guildDelete", this._handleGuildDeletion);
 
     this.once("end", () => {
-      this.client.removeListener("clickMenu", this.handleCollect);
+      this.client.removeListener("clickSelectMenu", this.handleCollect);
       this.client.removeListener("messageDelete", this._handleMessageDeletion);
       this.client.removeListener("channelDelete", this._handleChannelDeletion);
       this.client.removeListener("guildDelete", this._handleGuildDeletion);
